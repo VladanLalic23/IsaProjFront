@@ -30,7 +30,7 @@
                     <v-text-field label ="Postal code" v-model="form.postalCode" :rules="rules.postalCodeRules"></v-text-field> 
                     <v-text-field label ="Country" v-model="form.country" :rules="rules.countryRules"></v-text-field>  
                     <v-text-field label ="Phone number" v-model="form.phoneNumber" :rules="rules.phoneNumberRules"></v-text-field>
-                    <v-text-field label="Proffesion" v-model="form.proffesion" :rules="rules.proffesionRules"></v-text-field>
+                    <v-text-field label="Profession" v-model="form.profession" :rules="rules.professionRules"></v-text-field>
                     <v-text-field label ="Information" v-model="form.information" :rules="rules.informationRules"></v-text-field>
 
        
@@ -67,7 +67,7 @@ export default {
                 country:"",
                 phoneNumber:"",
                 jmbg:"",
-                proffesion:"",
+                profession:"",
                 information:"",
                 isFormValid: false,
             },
@@ -90,13 +90,13 @@ export default {
                         surname => !!surname || 'Surname is required!',
                         surname => /^[A-Za-z\s]+$/.test(surname) || 'Surname must contain only letters!'
                 ],
-                proffesionRules: [
-                        proffesion => !!proffesion || 'Proffesion is required!',
-                        proffesion => /^[A-Za-z\s]+$/.test(proffesion) || 'Proffesion must contain only letters!'
+                professionRules: [
+                profession => !!profession || 'Profession is required!',
+                profession => /^[A-Za-z\s]+$/.test(profession) || 'Profession must contain only letters!'
                 ],
                 informationRules: [
-                information => !!information || 'Information is required!',
-                information => /^[A-Za-z\s]+$/.test(information) || 'Information must contain only letters!'
+                    information => !!information || 'Information is required!',
+                    information => /^[A-Za-z\s]+$/.test(information) || 'Information must contain only letters!'
                 ],
                 jmbgRules:[
                     jmbg=> !!jmbg|| 'Jmbg is required!',
@@ -144,7 +144,7 @@ export default {
                 password: this.form.password,
                 name: this.form.name,
                 surname: this.form.surname,
-                proffesion: this.form.proffesion,
+                profession: this.form.profession,
                 info: this.form.information,
                 jmbg:this.form.jmbg,
                 gender: this.form.gender.toUpperCase(),
@@ -158,7 +158,7 @@ export default {
                
 
             }
-            this.$http.post('http://localhost:7070/auth/register', registrationDTO)
+            this.$http.post('/auth/register', registrationDTO)
             .then(response=>{
                 console.log(response.data);
                 this.snackbarText = "Your account has been successfuly created!";
