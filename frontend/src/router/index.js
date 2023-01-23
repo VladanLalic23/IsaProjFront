@@ -6,6 +6,9 @@ Vue.use(VueRouter)
 import HomePage from '@/views/HomePage.vue'
 import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
+import DonorHome from '@/views/donor/DonorHome.vue'
+import Clinic from '@/views/Clinic.vue'
+
 
 import { getToken, getRole } from '../security/token.js';
 
@@ -25,10 +28,25 @@ const routes = [
         path: 'register',
         component: Register,
         name: 'register',
-      }
-         
-      ]}
+      },
     ]
+  },
+    {
+      path: '/donor',
+      component: DonorHome,
+      name: 'donorHome',
+      meta: {
+        requiresAuthorization: true,
+        role: 'ROLE_DONOR'
+      }, 
+      children:[
+        {
+          path: 'clinic',
+          component: Clinic,
+          name: 'clinic',
+        },
+      ]
+  }]
 
     const router = new VueRouter({
       routes

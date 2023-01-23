@@ -5,11 +5,11 @@
                     <span>Klinika</span>
                     <span class="font-weight-light">Doniraj za zivot</span>
                 </v-toolbar-title>
-                <v-btn class="ml-5" color="lime lighten-3" @click="$router.push('/login').catch(()=>{})">
+                <v-btn class="ml-5" @click="$router.push('/login').catch(()=>{})">
                     <v-icon>mdi-login</v-icon>
                     <span>Login</span>
                 </v-btn>
-                <v-btn class="ml-5" color="lime lighten-3" @click="$router.push('/register').catch(()=>{})">
+                <v-btn class="ml-5"  @click="$router.push('/register').catch(()=>{})">
                     <v-icon>mdi-account-plus</v-icon>
                     <span>Register</span>
                 </v-btn>

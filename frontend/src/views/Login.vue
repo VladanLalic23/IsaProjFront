@@ -2,14 +2,14 @@
     <v-container>
         <v-layout class="my-10" justify-center>          
             <v-flex xs8 md6 lg4 xl4 sm6>
-            <v-card color="light-green lighten-3" class="pa-3">
+            <v-card class="pa-3">
                 <v-card-title>
                     <h3>Login</h3>
                 </v-card-title>
                 <v-form v-model="form.isFormValid">
                     <v-text-field v-model="form.email" :rules="rules.emailRules" label ="Email"></v-text-field>
                      <v-text-field v-model="form.password" :rules="rules.passwordRules" type="password" label ="Password"></v-text-field>                  
-                    <v-btn color="lime lighten-3" allign-right @click="submit" :disabled="!form.isFormValid">Login</v-btn>
+                    <v-btn allign-right @click="submit" :disabled="!form.isFormValid">Login</v-btn>
                     <v-spacer></v-spacer>
                 </v-form>
             </v-card>   
