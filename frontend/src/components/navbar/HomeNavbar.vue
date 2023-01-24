@@ -13,6 +13,9 @@
                     <v-icon>mdi-account-plus</v-icon>
                     <span>Register</span>
                 </v-btn>
+                <v-btn class="ml-5" @click="$router.push('/clinic').catch(()=>{})">
+                  <span>Clinic</span>
+              </v-btn>
             </v-toolbar>
         
         </v-app-bar>

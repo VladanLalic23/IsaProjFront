@@ -8,6 +8,13 @@ import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
 import DonorHome from '@/views/donor/DonorHome.vue'
 import Clinic from '@/views/Clinic.vue'
+import DonorAppointments from '@/views/donor/DonorAppointments.vue'
+import Form from '@/views/donor/Form.vue'
+import ScheduleAppointment from '@/views/donor/ScheduleAppointment.vue'
+import ScheduleAppointment2 from '@/views/donor/ScheduleAppointment2.vue'
+import Profile from '@/views/donor/DonorProfil.vue'
+
+
 
 
 import { getToken, getRole } from '../security/token.js';
@@ -44,6 +51,31 @@ const routes = [
           path: 'clinic',
           component: Clinic,
           name: 'clinic',
+        },
+        {
+          path: 'appointments',
+          component: DonorAppointments,
+          name: 'appointments',
+        },
+        {
+          path: 'form',
+          component: Form,
+          name: 'form',
+        },
+        {
+          path: 'profile',
+          component: Profile,
+          name: 'profile',
+        },
+        {
+          path: 'schedule-appointment',
+          component: ScheduleAppointment,
+          name: 'schedule-appointment',
+        },
+        {
+          path: 'schedule-appointment2',
+          component: ScheduleAppointment2,
+          name: 'schedule-appointment2',
         },
       ]
   }]
