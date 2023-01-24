@@ -13,6 +13,8 @@ import Form from '@/views/donor/Form.vue'
 import ScheduleAppointment from '@/views/donor/ScheduleAppointment.vue'
 import ScheduleAppointment2 from '@/views/donor/ScheduleAppointment2.vue'
 import Profile from '@/views/donor/DonorProfil.vue'
+import StaffHome from '@/views/staff/StaffHome.vue'
+import StaffAppointments from '@/views/staff/Appointments.vue'
 
 
 
@@ -35,6 +37,11 @@ const routes = [
         path: 'register',
         component: Register,
         name: 'register',
+      },
+      {
+        path: 'clinic',
+        component: Clinic,
+        name: 'clinic',
       },
     ]
   },
@@ -77,8 +84,21 @@ const routes = [
           component: ScheduleAppointment2,
           name: 'schedule-appointment2',
         },
+      ],
+      },
+  {
+    path: '/staff',
+      component: StaffHome,
+      name: 'stafHome',
+      meta: {
+        requiresAuthorization: true,
+        role: 'ROLE_STAFF'
+      },
       ]
-  }]
+  }
+    
+
+  ]
 
     const router = new VueRouter({
       routes
