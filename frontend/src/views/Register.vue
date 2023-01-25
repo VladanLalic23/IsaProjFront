@@ -2,7 +2,7 @@
     <v-container>
         <v-layout class="my-10" justify-center>          
             <v-flex xs8 md6 lg4 xl4 sm6>
-            <v-card color="light-red lighten-3" class="pa-3">
+            <v-card  class="pa-3">
                 <v-card-title>
                     <h3>Register</h3>
                 </v-card-title>
@@ -34,7 +34,7 @@
                     <v-text-field label ="Information" v-model="form.information" :rules="rules.informationRules"></v-text-field>
 
        
-                    <v-btn color="lime lighten-3" allign-right :disabled="!form.isFormValid" :rules="rules.passwordRepeatRules" @click="submit">Register</v-btn>
+                    <v-btn  allign-right :disabled="!form.isFormValid" :rules="rules.passwordRepeatRules" @click="submit">Register</v-btn>
                     <v-spacer></v-spacer>
                 </v-form>
             </v-card>

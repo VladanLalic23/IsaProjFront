@@ -38,9 +38,6 @@
                            {{clinics.item.streetName}} {{clinics.item.streetNumber}} / {{clinics.item.flatNumber}}
                       </td>
 
-                      <td>
-                             <v-btn @click="scheduleAppointment(clinics.item.appointmentId)">Appointments</v-btn>
-                        </td>
                   </tr> 
               </template>                
           </v-data-table>    
@@ -96,9 +93,7 @@ export default {
           this.search = "";
           this.clinicGrade = 1;
       },
-      scheduleAppointment() {
-            this.$router.push('/donor/schedule-appointment2/').catch(()=>{})
-        },
+
   },
 }
 </script>

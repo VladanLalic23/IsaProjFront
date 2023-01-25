@@ -17,7 +17,7 @@
                         <v-radio label="Ne" value="false"/>
                         </v-radio-group>
                     </v-row>
-                    <v-btn allign-right :disabled="!form.isFormValid" @click="submit">Predaj</v-btn>
+                    <v-btn @click="submit">Predaj</v-btn>
                     <v-spacer></v-spacer>
                 </v-form>
             </v-card>
@@ -40,7 +40,6 @@ export default {
         return{
             form:{
                 answer: "",
-                isFormValid: false,
             },
             rules:{      
             },
@@ -50,24 +49,21 @@ export default {
     },
     methods: {
         submit(){
-            let donorDTO = {
-                id: getId(),
-                form: this.form.answer,
-            }
-            this.$http.put('/donor/form/'+ getId(), donorDTO),
+            this.$http.get('donor/form/'+ getId(),
             {
                     headers : {
                         Authorization: 'Bearer ' + getToken()
                     }
-                }
+                })
             .then(response=>{
                 console.log(response.data);
                 this.snackbarText = "Upitnik uspesno popunjen!";
                 this.snackbar = true;
                 setTimeout(() => { this.$router.push({path: '/donor'})}, 2000);
             })}
-            
-        }
+        
+        },
+       
     }
 
 </script>
