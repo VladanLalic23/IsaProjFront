@@ -4,13 +4,12 @@
                         <span>{{snackbarText}}</span>
         </v-snackbar>
         <v-row class="ma-2">
-            <v-btn class = "ma-2" @click="loadClinicAppointment">Hisotry</v-btn>
+            <v-btn class = "ma-2" @click="loadClinicAppointment">History</v-btn>
             <v-btn class = "ma-2"  @click="loadScheduledAppointments">Scheduled appointments</v-btn>
 
             <v-spacer/>
                     <v-btn class = "ma-2"  @click="scheduleAppointment">Schedule appointment</v-btn>
-
-
+                    <v-btn class = "ma-2"  @click="schedulePredefAppointment">Schedule predef appointment</v-btn>
         </v-row>
 
         <v-flex v-if = "pastClicked">
@@ -130,6 +129,9 @@ export default {
         },
         scheduleAppointment() {
             this.$router.push('/donor/schedule-appointment').catch(()=>{})
+        },
+        schedulePredefAppointment() {
+            this.$router.push('/donor/schedule-appointment2/').catch(()=>{})
         },
         cancelAppointment (appointmentId) {
             let appointmentCancellationDTO = {

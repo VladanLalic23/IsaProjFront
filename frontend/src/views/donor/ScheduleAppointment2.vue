@@ -3,6 +3,32 @@
 
         <H1>PREDEF</H1>
 
+        <v-data-table :headers = "headersClinic" :items = "clinics" :items-per-page="10">
+              <template v-slot:item = "clinics" v-bind="clinics.id">
+                  <tr>
+                      <td>
+                          {{clinics.item.name}}
+                      </td>
+                      <td>
+                           {{clinics.item.averageGrade}}
+                      </td>
+                      <td>
+                           {{clinics.item.city}}
+                      </td>
+                      <td>
+                           {{clinics.item.country}}
+                      </td>
+                      <td>
+                           {{clinics.item.streetName}} {{clinics.item.streetNumber}} / {{clinics.item.flatNumber}}
+                      </td>
+
+                      <td>
+                             <v-btn @click="loadClinicAppointments(clinics.item.id)">Appointments</v-btn>
+                        </td>
+                  </tr> 
+              </template>                
+          </v-data-table>
+
     <v-data-table :headers = "headers" :items = "appointments" :items-per-page="10">
         <template v-slot:item = "appointments" v-bind="appointments.id">
             <tr>
@@ -20,7 +46,8 @@
                 </td>
             </tr>
         </template>                
-    </v-data-table>   
+    </v-data-table>  
+      
     </v-container>
 </template>
 
@@ -40,15 +67,41 @@ export default {
         ],
         appointments: [],
         snackbar: false,
+        headersClinic:[
+              { text: "Name", value: "name", align: "start", sortable: true, filterable: true },
+              { text: "Average grade", value: "averageGrade", sortable: true, filterable: false },
+              { text: "City", value: "city", sortable: true, filterable: true },
+              { text: "Country", value: "country", sortable: false, filterable: false },
+              { text: "Address", value: "Address", sortable: false, filterable: false },
+        ],
         snackbarText : "",
+        clinics: [],
       };
     },
     mounted() {
-        this.loadClinicAppointments();
+        this.loadAllClinics();
     },
     methods: {
-        loadClinicAppointments(){
-            this.$http.get('appointment/clinic/1',
+        loadAllClinics(){
+          this.$http.get('clinic/all',
+              {
+              })
+          .then(response => {
+              this.clinics = response.data
+          }).catch(error => {
+              if(error.response.status === 401){
+                 this.snackbarText = "Nemam!";
+                 this.snackbar = true;
+              }
+          }
+          )
+      },
+      allClinics(){
+          this.loadAllClinics();
+      },
+        loadClinicAppointments(clinicId){
+
+            this.$http.get('appointment/clinic/' + clinicId ,
                 {
                     headers : {
                         Authorization: 'Bearer ' + getToken()
@@ -85,7 +138,7 @@ export default {
             }).catch(error => {
                 if(error.response.status === 400){
                    this.snackbar = true
-                   this.snackbarText = "We couldn't find the employee!";
+                   this.snackbarText = "We couldn't find the staff!";
                 }
             }
           )
