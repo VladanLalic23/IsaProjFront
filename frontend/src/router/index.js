@@ -15,6 +15,7 @@ import ScheduleAppointment2 from '@/views/donor/ScheduleAppointment2.vue'
 import Profile from '@/views/donor/DonorProfil.vue'
 import StaffHome from '@/views/staff/StaffHome.vue'
 import StaffAppointments from '@/views/staff/Appointments.vue'
+import Complaint from '@/views/donor/Complaint.vue'
 
 
 
@@ -83,6 +84,11 @@ const routes = [
           path: 'schedule-appointment2',
           component: ScheduleAppointment2,
           name: 'schedule-appointment2',
+        },
+        {
+          path: 'complaints',
+          component: Complaint,
+          name: 'Complaints',
         },
       ],
       },

@@ -48,22 +48,27 @@ export default {
         }
     },
     methods: {
-        submit(){
-            this.$http.get('donor/form/'+ getId(),
-            {
-                    headers : {
-                        Authorization: 'Bearer ' + getToken()
-                    }
-                })
-            .then(response=>{
+        submit() {
+         if (this.form.answer == 'true') {
+        this.$http.get('donor/form/'+ getId(), {
+         headers: {
+                Authorization: 'Bearer ' + getToken()
+         }
+         })
+         .then(response => {
                 console.log(response.data);
                 this.snackbarText = "Upitnik uspesno popunjen!";
                 this.snackbar = true;
-                setTimeout(() => { this.$router.push({path: '/donor'})}, 2000);
-            })}
-        
-        },
-       
+                 setTimeout(() => { this.$router.push({path: '/donor'})}, 2000);
+              })
+             } else {
+             console.log(this.form.answer);
+             this.snackbarText = "Niste uspesno popunili upitnik";
+             this.snackbar = true;
+             setTimeout(() => { this.$router.push({path: '/donor'})}, 2000);
     }
+}}}
+       
+    
 
 </script>
