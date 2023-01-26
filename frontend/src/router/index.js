@@ -16,6 +16,9 @@ import Profile from '@/views/donor/DonorProfil.vue'
 import StaffHome from '@/views/staff/StaffHome.vue'
 import StaffAppointments from '@/views/staff/Appointments.vue'
 import Complaint from '@/views/donor/Complaint.vue'
+import ComplaintAnswer from '@/views/admin/ComplaintAnswer.vue'
+import AdminHome from '@/views/admin/AdminHome.vue'
+
 
 
 
@@ -107,7 +110,24 @@ const routes = [
           name: 'appointments',
         },
 
-      ]
+      ],
+    },
+      {
+        path: '/admin',
+          component: AdminHome,
+          name: 'adminHome',
+          meta: {
+            requiresAuthorization: true,
+            role: 'ROLE_ADMIN'
+          },
+          children:[
+            {
+              path: 'complaintAnswer',
+              component: ComplaintAnswer,
+              name: 'complaintAnswer',
+            },
+          ]
+          
   }
     
 
