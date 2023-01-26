@@ -3,59 +3,20 @@
     <v-flex xs11 md9 lg7 xl7 sm9>
     <v-row class="ma-3">
         <v-col>
-            <v-menu
-                v-model="dateMenu"
-                :close-on-content-click="false"
-                :nudge-right="40"
-                transition="scale-transition"
-                offset-y
-                max-width="290px"
-                min-width="290px"
-            >
+            <v-menu v-model="dateMenu" :close-on-content-click="false" :nudge-right="40" transition="scale-transition"        offset-y   max-width="290px" min-width="290px" >
                 <template v-slot:activator="{ on }">
                     <v-text-field
-                        label="Appointment date:"
-                        prepend-icon="mdi-calendar-text-outline"
-                        readonly
-                        :value="dateDisp"
-                        v-on="on"
-                    ></v-text-field>
+                        label="Appointment date:" readonly :value="dateDisp" v-on="on" ></v-text-field>
                 </template>
-                <v-date-picker
-                    locale="en-in"
-                    v-model="dateValue"
-                    no-title
-                    @input="dateMenu = false"
-                ></v-date-picker>
+                <v-date-picker locale="en-in" v-model="dateValue" no-title  @input="dateMenu = false" ></v-date-picker>
             </v-menu>
         </v-col>
         <v-col class = "ml-5">
-            <v-menu
-                ref="menu"
-                v-model="timeMenu"
-                :close-on-content-click="false"
-                :nudge-right="40"
-                :return-value.sync="time"
-                transition="scale-transition"
-                offset-y
-                max-width="290px"
-                min-width="290px"
-            >
+            <v-menu ref="menu" v-model="timeMenu" :close-on-content-click="false" :nudge-right="40" :return-value.sync="time" transition="scale-transition" offset-y max-width="290px" min-width="290px" >
                 <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                        v-model="timeValue"
-                        label="Appointment time"
-                        prepend-icon="mdi-clock-time-four-outline"
-                        readonly
-                        v-bind="attrs"
-                        v-on="on"
-                    ></v-text-field>
+                    <v-text-field v-model="timeValue" label="Appointment time" readonly v-bind="attrs" v-on="on"></v-text-field>
                 </template>
-                <v-time-picker
-                    v-if="timeMenu"
-                    v-model="timeValue"
-                    @click:minute="$refs.menu.save(timeValue)"
-                ></v-time-picker>
+                <v-time-picker v-if="timeMenu" v-model="timeValue" format="24hr" @click:minute="$refs.menu.save(timeValue)"></v-time-picker>
             </v-menu>
         </v-col>
         <v-col>
@@ -140,11 +101,7 @@ export default {
         appointmentHeaders: [         
             { text: "Start time", align: "start", value: "appointmentStartTime", sortable: false },
             { text: "End time", value: "appointmentEndTime", sortable: false },
-            { text: "Staff grade", value: "staffGrade", sortable: true },
-            { text: "Staff", value: "staff", sortable: false },
         ],
-        appointmentExaminerDialog : false,
-        appointmentExaminer : "",
         snackbar: false,
         snackbarText : "",
       };
@@ -162,13 +119,13 @@ export default {
             this.clinicAppointmentsClicked = true;
             
             let date = new Date(this.dateValue + " " + this.timeValue + ":00")
-            let consultationSearchDTO = {
+            let appointmentSearchDTO = {
                 appointmentTime :  date,
                 clinicId : clinicId,
                 donorId: getId()
             }
-            this.$http.post('/clinic/'+this.Id,
-            consultationSearchDTO,
+            this.$http.post('appointment/clinic-date/',
+            appointmentSearchDTO,
                 {
                     headers : {
                         Authorization: 'Bearer ' + getToken()
@@ -192,7 +149,7 @@ export default {
                 appointmentTime :  date,
                 donorId : getId()
             }
-            this.$http.get('appointment/find-available-by-time',
+            this.$http.post('appointment/available-clinic',
             appointmentSearchDTO,
                 {
                     headers : {
@@ -203,25 +160,6 @@ export default {
             .then(response => {
                 this.tableItems = response.data;
             })
-        },
-        loadAppointmentExaminer(id){
-            this.$http.get('user/employee-by-id/' + id,
-                {
-                    headers : {
-                        Authorization: 'Bearer ' + getToken()
-                    }
-                }
-            )
-            .then(response => {
-                this.appointmentExaminerDialog = true;
-                this.appointmentExaminer = response.data;
-            }).catch(error => {
-                if(error.response.status === 400){
-                   this.snackbar = true
-                   this.snackbarText = "We couldn't find the employee!";
-                }
-            }
-          )
         },
         scheduleAppointment (appointmentId) {
             let scheduleAppointmentDTO = {
@@ -240,13 +178,9 @@ export default {
                     this.snackbarText = "You have successfully scheduled your appointment!";
                     this.snackbar = true;
                     setTimeout(() => { this.$router.push('/donor/appointments/').catch(()=>{})}, 2000);
-            }).catch(error => {
-                if(error.response.status === 400){
-                   this.snackbar = true
-                   this.snackbarText = "We couldn't find the employee!";
-                }
-            }
-          )
+            })
+        
+          
         },
     }
 }
