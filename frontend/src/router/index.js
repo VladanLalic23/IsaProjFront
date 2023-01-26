@@ -100,6 +100,13 @@ const routes = [
         requiresAuthorization: true,
         role: 'ROLE_STAFF'
       },
+      children:[
+        {
+          path: 'appointments',
+          component: StaffAppointments,
+          name: 'appointments',
+        },
+
       ]
   }
     
